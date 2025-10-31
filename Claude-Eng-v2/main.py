@@ -306,10 +306,15 @@ CONTINUATION_EXIT_PHRASE = "AUTOMODE_COMPLETE"
 MAX_CONTINUATION_ITERATIONS = 25
 MAX_CONTEXT_TOKENS = 200000  # Reduced to 200k tokens for context window
 
+# Available Anthropic Models (as of January 2025):
+# - claude-3-5-sonnet-20241022: Latest Sonnet (best balance of intelligence/speed)
+# - claude-3-5-haiku-20241022: Latest Haiku (fastest, most cost-effective)
+# - claude-3-opus-20240229: Claude 3 Opus (most capable, slower)
+
 MAINMODEL = "claude-3-5-sonnet-20241022"
 TOOLCHECKERMODEL = "claude-3-5-sonnet-20241022"
 CODEEDITORMODEL = "claude-3-5-sonnet-20241022"
-CODEEXECUTIONMODEL = "claude-3-5-sonnet-20241022"
+CODEEXECUTIONMODEL = "claude-3-5-haiku-20241022"  # Using Haiku for faster, cheaper execution analysis
 
 # System prompts
 BASE_SYSTEM_PROMPT = """
@@ -1979,10 +1984,10 @@ def display_token_usage():
     table.add_column("Cost ($)", style="red")
 
     model_costs = {
-        "Main Model": {"input": 3.00, "output": 15.00, "cache_write": 3.75, "cache_read": 0.30, "has_context": True},
-        "Tool Checker": {"input": 3.00, "output": 15.00, "cache_write": 3.75, "cache_read": 0.30, "has_context": False},
-        "Code Editor": {"input": 3.00, "output": 15.00, "cache_write": 3.75, "cache_read": 0.30, "has_context": True},
-        "Code Execution": {"input": 3.00, "output": 15.00, "cache_write": 3.75, "cache_read": 0.30, "has_context": False}
+        "Main Model": {"input": 3.00, "output": 15.00, "cache_write": 3.75, "cache_read": 0.30, "has_context": True},  # Sonnet
+        "Tool Checker": {"input": 3.00, "output": 15.00, "cache_write": 3.75, "cache_read": 0.30, "has_context": False},  # Sonnet
+        "Code Editor": {"input": 3.00, "output": 15.00, "cache_write": 3.75, "cache_read": 0.30, "has_context": True},  # Sonnet
+        "Code Execution": {"input": 1.00, "output": 5.00, "cache_write": 1.25, "cache_read": 0.10, "has_context": False}  # Haiku
     }
 
     total_input = 0

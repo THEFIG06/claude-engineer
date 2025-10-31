@@ -87,8 +87,9 @@ Return ONLY the Python code without any explanation or markdown formatting.
 
         try:
             # Get tool implementation from Claude with animation
+            # Available models: claude-3-5-sonnet-20241022, claude-3-5-haiku-20241022, claude-3-opus-20240229
             response = self.client.messages.create(
-                model="claude-3-5-sonnet-20241022",
+                model="claude-3-5-sonnet-20241022",  # Using Sonnet for best code generation quality
                 max_tokens=4000,
                 temperature=0,
                 messages=[
